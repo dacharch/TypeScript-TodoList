@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import "./InputField.css";
+import "./style.css";
 
 interface Props {
   todo: string;
@@ -7,10 +7,16 @@ interface Props {
   handleAdd: (e: React.FormEvent) => void;
 }
 const InputField: React.FC<Props> = ({ todo, setTodo, handleAdd }: Props) => {
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <form className="input" onSubmit={(e) => handleAdd(e.target.value)}>
+    <form
+      className="input"
+      onSubmit={(e) => {
+        handleAdd(e);
+        inputRef.current?.blur();
+      }}
+    >
       <input
         ref={inputRef}
         className="input_box"
